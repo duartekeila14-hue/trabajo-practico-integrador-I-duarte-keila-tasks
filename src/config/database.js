@@ -3,8 +3,10 @@ import { Sequelize } from "sequelize";
 import dotenv from "dotenv";
 
 dotenv.config();
+/*lee todo el contenido de las variables de entorno en el archivo env*/
 
-export const sequelize = new Sequelize(
+/*declaramos y exportamos la función que conecta node.js con la bd usando Sequelize*/
+export const sequelize = new Sequelize(  /*new Sequelize es para crear un nuevo obj sequelize que lea las siguientes parámetros*/ 
     process.env.DB_NAME,
     process.env.DB_USER,
     process.env.DB_PASSWORD,

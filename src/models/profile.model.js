@@ -13,43 +13,31 @@ export const Profile = sequelize.define(
             type: DataTypes.INTEGER,
             allowNull: false,
             unique: true,
-            references: {
-                model: "Users",
-                key: "id",
+            references: { //references indica que una foreign key apunta a la columna id de users
+                model: "Users", //especifica a cual model
+                key: "id", // y a cual clave, en este caso id
+                //un profile pertenece a un solo user (zz1:1)
             },
         },
         firstName: {
             type: DataTypes.STRING(50),
             allowNull: false,
-            validate: {
-                len: [2, 50],
-                isAlpha: true,
-            },
+            
         },
         lastName: {
             type: DataTypes.STRING(50),
             allowNull: false,
-            validate: {
-                len: [2, 50],
-                isAlpha: true,
-            },
         },
         biography: {
-            type: DataTypes.TEXT,
-            allowNull: true,
-            validate: {
-                len: [0, 500],
-            },
+            type: DataTypes.TEXT,//text sirve para textos largos
+            allowNull: true, //puede quedar vacío
         },
         avatarUrl: {
-            type: DataTypes.STRING(255),
+            type: DataTypes.STRING(255), //lenght como para guardar una URL
             allowNull: true,
-            validate: {
-                isUrl: true,
-            },
         },
         birthDate: {
-            type: DataTypes.DATEONLY,
+            type: DataTypes.DATEONLY, //dateonly guarda dia, mes y año. Sin hora
             allowNull: true,
         },
     },
