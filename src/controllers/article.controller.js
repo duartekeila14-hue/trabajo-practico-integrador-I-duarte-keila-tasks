@@ -1,8 +1,7 @@
 import { Article, User, Tag } from "../models/index.js";
 
-// ============================================
-// POST /api/articles  (usuario autenticado)
-// ============================================
+
+// POST /api/articles  usuario autenticad
 export const createArticle = async (req, res) => {
     try {
         const { title, content, excerpt, status } = req.body;
@@ -28,9 +27,9 @@ export const createArticle = async (req, res) => {
     }
 };
 
-// ============================================
-// GET /api/articles  (usuario autenticado)
-// ============================================
+
+// GET /api/articles, usuario autenticado
+
 export const getArticles = async (req, res) => {
     try {
         const articles = await Article.findAll({
@@ -61,9 +60,9 @@ export const getArticles = async (req, res) => {
     }
 };
 
-// ============================================
-// GET /api/articles/:id  (usuario autenticado)
-// ============================================
+
+// GET /api/articles/:id, usuario autenticado
+
 export const getArticleById = async (req, res) => {
     try {
         const { id } = req.params;
@@ -101,9 +100,9 @@ export const getArticleById = async (req, res) => {
     }
 };
 
-// ============================================
-// GET /api/articles/user  (usuario autenticado)
-// ============================================
+
+// con GET, usuario autenticado
+
 export const getMyArticles = async (req, res) => {
     try {
         const articles = await Article.findAll({
@@ -132,9 +131,9 @@ export const getMyArticles = async (req, res) => {
     }
 };
 
-// ============================================
-// GET /api/articles/user/:id  (usuario autenticado)
-// ============================================
+
+// usuario autenticado 
+
 export const getMyArticleById = async (req, res) => {
     try {
         const { id } = req.params;
@@ -171,9 +170,8 @@ export const getMyArticleById = async (req, res) => {
     }
 };
 
-// ============================================
-// PUT /api/articles/:id  (solo autor o admin)
-// ============================================
+// solo autor o admin
+
 export const updateArticle = async (req, res) => {
     try {
         const { id } = req.params;
@@ -188,10 +186,10 @@ export const updateArticle = async (req, res) => {
         }
 
         await article.update({
-            title: title ?? article.title,
-            content: content ?? article.content,
-            excerpt: excerpt ?? article.excerpt,
-            status: status ?? article.status,
+            title: title || article.title,
+            content: content || article.content,
+            excerpt: excerpt || article.excerpt,
+            status: status || article.status,
         });
 
         return res.status(200).json({
@@ -207,9 +205,9 @@ export const updateArticle = async (req, res) => {
     }
 };
 
-// ============================================
-// DELETE /api/articles/:id  (solo autor o admin)
-// ============================================
+
+// DELETE /api/articles/:id, solo autor o admin
+
 export const deleteArticle = async (req, res) => {
     try {
         const { id } = req.params;
@@ -222,7 +220,7 @@ export const deleteArticle = async (req, res) => {
             });
         }
 
-        // Eliminar asociaciones con tags (cascada)
+        // Eliminar asociaciones con tags ( en cascada)
         await article.setTags([]);
 
         // Eliminación lógica
