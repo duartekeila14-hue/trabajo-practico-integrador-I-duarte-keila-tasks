@@ -3,7 +3,11 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
-
+import { authRoutes } from "./src/routes/auth.routes.js";
+import { userRoutes } from "./src/routes/user.routes.js";
+import { articleRoutes } from "./src/routes/article.routes.js";
+import { tagRoutes } from "./src/routes/tag.routes.js";
+import { articleTagRoutes } from "./src/routes/articleTag.routes.js";
 
 dotenv.config();
 /*permite cargar las variables de entorno del archivo env para leer los process.env*/
@@ -24,10 +28,20 @@ app.use(
     })
 );
 
+app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/articles", articleRoutes);
+app.use("/api/tags", tagRoutes);
+app.use("/api/articles-tags", articleTagRoutes);
 
-app.listen(PORT, async () => { //escuchamos el puerto mientras esperamos que se inicie la base de datos
+try {
     await startDB();
-    console.log(`Servidor corriendo en http://localhost:${PORT}`); //una vez lograda la promesa, mostramos un mensaje 
-});
+    app.listen(PORT, () => {
+        console.log(`Servidor corriendo en http://localhost:${PORT}`);
+    });
+} catch (error) {
+    console.error("No se pudo iniciar el servidor:", error);
+    process.exitCode = 1;
+}
 
-export default app; //exportamos la instancia de express 
+export default app; //exportamos la instancia de express

@@ -1,42 +1,22 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../config/database.js";
 
-export const Article = sequelize.define(
-    "Article",
+export const Tag = sequelize.define(
+    "Tag",
     {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
         },
-        title: {
-            type: DataTypes.STRING(200),
+        name: {
+            type: DataTypes.STRING(30),
             allowNull: false,
-        },
-        content: {
-            type: DataTypes.TEXT,
-            allowNull: false,
-        },
-        excerpt: {
-            type: DataTypes.STRING(500),
-            allowNull: true,
-        },
-        status: {
-            type: DataTypes.ENUM("published", "archived"),
-            defaultValue: "published",
-        },
-        userId: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            references: {
-                model: "Users",
-                key: "id",
-            },
+            unique: true,
         },
     },
     {
         timestamps: true,
-        paranoid: true,
-        tableName: "Articles",
+        tableName: "Tags",
     }
 );

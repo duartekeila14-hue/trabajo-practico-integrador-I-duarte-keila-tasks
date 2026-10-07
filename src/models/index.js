@@ -1,4 +1,10 @@
 
+import { User } from "./user.model.js";
+import { Profile } from "./profile.model.js";
+import { Article } from "./article.model.js";
+import { Tag } from "./tag.model.js";
+import { ArticleTag } from "./articleTag.model.js";
+
 User.hasOne(Profile, { //un user tiene un solo profile
     foreignKey: "userId", // se le dice a sequelize que la columna que conecta las dos tablas es userID, que es la que está en profile.
     as: "profile", //es un alias, cuando traigamos un usuario con un perfil, se va a llamar profile.
@@ -33,3 +39,5 @@ Tag.belongsToMany(Article, { // tag pertenece a muchos artículos
     foreignKey: "tagId", // columna puente
     as: "articles", // el alias con el que vamos a traer los datos al realizar consultas
 });
+
+export { User, Profile, Article, Tag, ArticleTag };
