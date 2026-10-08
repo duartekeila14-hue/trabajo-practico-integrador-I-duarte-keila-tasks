@@ -22,7 +22,9 @@ export const startDB = async () => {
     try {
         await sequelize.authenticate();
         console.log("Conexión a la base de datos establecida.");
+        await sequelize.sync();
+        console.log("Modelos sincronizados con la base de datos.");
     } catch (error) {
-        throw new Error("Error al conectar a la base de datos", { cause: error });
+        throw new Error("Error al iniciar o sincronizar la base de datos", { cause: error });
     }
 };
